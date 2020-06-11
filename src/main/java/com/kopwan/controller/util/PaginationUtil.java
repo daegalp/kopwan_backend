@@ -21,7 +21,7 @@ public class PaginationUtil {
     private void validateSizeRequest(int size) {
         if (size <= 0) {
             throw new ValidationException(ErrorCode.INVALID_PAGINATION_OF_SIZE);
-        } else if (size > 100) {
+        } else if (size > 999) {
             throw new ValidationException(ErrorCode.INVALID_PAGINATION_OF_MAX_SIZE);
         }
     }
