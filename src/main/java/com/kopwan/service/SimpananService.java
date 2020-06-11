@@ -32,4 +32,11 @@ public class SimpananService {
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.SIMPANAN_NOT_FOUND)))
                 .flatMap(result -> simpananRepository.save(util.copyRequest(request, result)));
     }
+
+    public Mono<Void> deleteSimpanan(String id) {
+        return simpananRepository.findByIdAndMarkForDeleteFalse(id)
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.SIMPANAN_NOT_FOUND)))
+                .flatMap(result -> simpananRepository.save(util.delete(result)))
+                .then();
+    }
 }
