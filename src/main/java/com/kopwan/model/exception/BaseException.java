@@ -1,7 +1,6 @@
 package com.kopwan.model.exception;
 
 import com.kopwan.model.enums.ErrorCode;
-import com.kopwan.model.enums.FeatureCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,6 @@ public class BaseException extends RuntimeException {
 
     private String requestId;
     private String exceptionType;
-    private FeatureCode featureCode;
     private String code;
     private String message;
     private int httpStatus;
