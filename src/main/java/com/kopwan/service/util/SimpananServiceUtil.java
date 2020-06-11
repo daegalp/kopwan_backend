@@ -26,4 +26,9 @@ public class SimpananServiceUtil {
         BeanUtils.copyProperties(request, result);
         return result;
     }
+
+    public Simpanan delete(Simpanan simpanan){
+        simpanan.setMarkForDelete(true);
+        return simpanan;
+    }
 }
