@@ -2,7 +2,6 @@ package com.kopwan.controller;
 
 import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.constant.ApiPath;
-import com.kopwan.model.enums.FeatureCode;
 import com.kopwan.model.request.AnggotaRequest;
 import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestListResponse;
@@ -29,7 +28,7 @@ public class AnggotaController extends BaseController{
         return anggotaService.findAnggotaByName(name)
                 .map(this::createAnggotaResponse)
                 .map(this::toSingleResponse)
-                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
 
@@ -39,7 +38,7 @@ public class AnggotaController extends BaseController{
     public Mono<RestBaseResponse> createAnggota(@RequestBody AnggotaRequest request) {
         return anggotaService.createAnggota(request)
                 .thenReturn(toBaseResponse())
-                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
 
@@ -51,7 +50,7 @@ public class AnggotaController extends BaseController{
         return anggotaService.findAllAnggota(buildPageRequest(page, size))
                 .map(data -> toListResponse(createAnggotaResponseList(data.getContent()),
                         buildPageMetaData(page, size, data.getTotalElements())))
-                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
 
@@ -62,7 +61,7 @@ public class AnggotaController extends BaseController{
         return anggotaService.updateAnggota(request)
                 .map(this::createAnggotaResponse)
                 .map(this::toSingleResponse)
-                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
 
@@ -71,7 +70,7 @@ public class AnggotaController extends BaseController{
     public Mono<RestBaseResponse> deleteAnggota(@PathVariable String no) {
         return anggotaService.deleteAnggota(no)
                 .thenReturn(toBaseResponse())
-                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
 
