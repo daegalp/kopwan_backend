@@ -14,5 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 public class AnggotaResponse {
+    private String no;
     private String name;
+    private int rw;
 }
