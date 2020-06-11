@@ -1,6 +1,5 @@
 package com.kopwan.service.util;
 
-import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.entity.Simpanan;
 import com.kopwan.model.request.SimpananRequest;
 import com.kopwan.model.response.anggota.AnggotaResponse;
@@ -21,5 +20,10 @@ public class SimpananServiceUtil {
         }
 
         return simpanan;
+    }
+
+    public Simpanan copyRequest(SimpananRequest request, Simpanan result){
+        BeanUtils.copyProperties(request, result);
+        return result;
     }
 }
