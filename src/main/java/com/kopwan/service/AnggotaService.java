@@ -4,7 +4,6 @@ import com.kopwan.dao.AnggotaRepository;
 import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
-import com.kopwan.model.exception.ValidationException;
 import com.kopwan.model.request.AnggotaRequest;
 import com.kopwan.service.util.AnggotaServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class AnggotaService {
 
     public Mono<Void> createAnggota(AnggotaRequest request){
         return anggotaRepository.findByNoAndMarkForDeleteFalse(request.getNo())
-                .flatMap(data -> Mono.error(new ValidationException(ErrorCode.NO_ANGGOTA_NOT_UNIQUE)))
+                .flatMap(data -> Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_UNIQUE)))
                 .switchIfEmpty(anggotaRepository.save(anggotaServiceUtil.convertToAnggota(request)))
                 .then();
     }
@@ -43,13 +42,13 @@ public class AnggotaService {
 
     public Mono<Anggota> updateAnggota(AnggotaRequest request){
         return anggotaRepository.findByNoAndMarkForDeleteFalse(request.getNo())
-                .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
                 .flatMap(result -> anggotaRepository.save(anggotaServiceUtil.copyRequest(request, result)));
     }
 
     public Mono<Anggota> deleteAnggota(String no){
         return anggotaRepository.findByNoAndMarkForDeleteFalse(no)
-                .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
                 .flatMap(result -> anggotaRepository.save(anggotaServiceUtil.delete(result)));
     }
 }
