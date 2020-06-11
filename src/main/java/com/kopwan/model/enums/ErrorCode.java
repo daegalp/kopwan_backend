@@ -11,10 +11,15 @@ public enum ErrorCode {
             "Input of size can't be more than maximum size. It should start from 1"),
     NO_ANGGOTA_NOT_UNIQUE("ERR-PA400004", 400, "No Anggota must be unique"),
 
+    INVALID_SIMPANAN_TYPE("ERR-PA403001", 403,
+            "Invalid Simpanan Type"),
+
     NAME_NOT_FOUND("ERR-PA404001",
             404, "Cannot find name"),
     NO_ANGGOTA_NOT_FOUND("ERR-PA404002",
             404, "Cannot find no anggota"),
+    SIMPANAN_NOT_FOUND("ERR-PA404003",
+            404, "Cannot find simpanan by id"),
 
     UNSPECIFIED_ERROR("ERR-PI500001",500,
             "Unspecified error that not handled by generic handler");
