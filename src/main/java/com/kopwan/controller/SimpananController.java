@@ -3,7 +3,9 @@ package com.kopwan.controller;
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.entity.Simpanan;
 import com.kopwan.model.request.SimpananRequest;
+import com.kopwan.model.request.param.SimpananParamRequest;
 import com.kopwan.model.response.RestBaseResponse;
+import com.kopwan.model.response.RestListResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.simpanan.SimpananDetailResponse;
 import com.kopwan.service.SimpananService;
@@ -33,7 +35,7 @@ public class SimpananController extends BaseController {
 
     @GetMapping(value = ApiPath.GET_SIMPANAN_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestSingleResponse<SimpananDetailResponse>> getAnggota(@PathVariable String id) {
+    public Mono<RestSingleResponse<SimpananDetailResponse>> getDetailSimpanan(@PathVariable String id) {
         return simpananService.getDetailSimpanan(id)
                 .map(this::createDetailResponse)
                 .map(this::toSingleResponse)
@@ -56,9 +58,25 @@ public class SimpananController extends BaseController {
 
     @DeleteMapping(value = ApiPath.GET_SIMPANAN_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestBaseResponse> deleteAnggota(@PathVariable String id) {
+    public Mono<RestBaseResponse> deleteSimpanan(@PathVariable String id) {
         return simpananService.deleteSimpanan(id)
                 .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.SIMPANAN,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestListResponse<SimpananDetailResponse>> getAllSimpananByMonthAndYear(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "999") int rw,
+            @RequestParam(defaultValue = "") String type,
+            @RequestParam(defaultValue = "") String month,
+            @RequestParam(defaultValue = "999") int year) {
+        return simpananService.filterSimpanan(createParamRequest(page, size, type, month, year, rw))
+                .map(data -> toListResponse(createDetailResponseList(data.getContent()),
+                        buildPageMetaData(page, size, data.getTotalElements())))
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
@@ -77,6 +95,18 @@ public class SimpananController extends BaseController {
                 .nominal(simpanan.getNominal())
                 .month(simpanan.getMonth())
                 .year(simpanan.getYear())
+                .build();
+    }
+
+    private SimpananParamRequest createParamRequest(int page, int size, String type, String month, int year, int rw){
+        buildPageRequest(page, size);
+        return SimpananParamRequest.builder()
+                .page(page)
+                .size(size)
+                .rw(rw)
+                .type(type)
+                .month(month)
+                .year(year)
                 .build();
     }
 }
