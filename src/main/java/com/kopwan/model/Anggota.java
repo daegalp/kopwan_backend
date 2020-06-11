@@ -15,5 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = Anggota.COLLECTION_NAME)
 public class Anggota extends BaseEntity {
     public static final String COLLECTION_NAME = "ANGGOTA";
+    private String no;
     private String name;
+    private int rw;
 }
