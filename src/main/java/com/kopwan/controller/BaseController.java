@@ -3,7 +3,6 @@ package com.kopwan.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kopwan.controller.util.PaginationUtil;
 import com.kopwan.model.enums.ErrorCode;
-import com.kopwan.model.enums.FeatureCode;
 import com.kopwan.model.exception.BaseException;
 import com.kopwan.model.response.PageMetaData;
 import com.kopwan.model.response.RestBaseResponse;
@@ -72,7 +71,7 @@ public class BaseController {
         return PageRequest.of(page - 1, size);
     }
 
-    public <T> void handleError(FeatureCode featureCode, Throwable e) {
+    public <T> void handleError(Throwable e) {
         BaseException ge;
         if (e instanceof BaseException) {
             ge = (BaseException) e;
@@ -83,7 +82,6 @@ public class BaseController {
         }
         ge.setRequestId(UUID.randomUUID().toString());
         ge.setExceptionType(e.getClass().getSimpleName());
-        ge.setFeatureCode(featureCode);
         throw ge;
     }
 
