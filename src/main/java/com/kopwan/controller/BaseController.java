@@ -1,6 +1,7 @@
 package com.kopwan.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kopwan.controller.util.PaginationUtil;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.enums.FeatureCode;
 import com.kopwan.model.exception.BaseException;
@@ -11,6 +12,8 @@ import com.kopwan.model.response.RestSingleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.List;
@@ -21,6 +24,8 @@ public class BaseController {
 
     @Autowired
     ObjectMapper mapper;
+    @Autowired
+    private PaginationUtil paginationUtil;
 
     <T> RestListResponse<T> toListResponse(List<T> data) {
         return RestListResponse.<T>builder()
@@ -60,6 +65,11 @@ public class BaseController {
                 .pageSize(pageSize)
                 .totalRecords(totalRecords)
                 .build();
+    }
+
+    protected Pageable buildPageRequest(int page, int size){
+        paginationUtil.validatePageRequest(page, size);
+        return PageRequest.of(page - 1, size);
     }
 
     public <T> void handleError(FeatureCode featureCode, Throwable e) {
