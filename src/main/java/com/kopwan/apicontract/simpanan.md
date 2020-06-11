@@ -129,7 +129,7 @@
 - OPTIONAL - page
 - OPTIONAL - size
 - OPTIONAL - rw (1 - 9)
-- OPTIONAL - type (POKOK / WAJIB / SUKARELA)
+- OPTIONAL - type (POKOK / WAJIB / SUKARELA / DUKA)
 - OPTIONAL - month
 - OPTIONAL - year
 
