@@ -1,7 +1,7 @@
 package com.kopwan.service;
 
 import com.kopwan.dao.AnggotaRepository;
-import com.kopwan.model.Anggota;
+import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.exception.ValidationException;
@@ -13,8 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @Service
 public class AnggotaService {

@@ -1,6 +1,6 @@
 package com.kopwan.service.util;
 
-import com.kopwan.model.Anggota;
+import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.request.AnggotaRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.kopwan.dao;
 
-import com.kopwan.model.Anggota;
+import com.kopwan.model.entity.Anggota;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;

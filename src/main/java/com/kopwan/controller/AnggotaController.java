@@ -1,6 +1,6 @@
 package com.kopwan.controller;
 
-import com.kopwan.model.Anggota;
+import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.enums.FeatureCode;
 import com.kopwan.model.request.AnggotaRequest;
