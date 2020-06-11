@@ -41,6 +41,19 @@ public class SimpananController extends BaseController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @PutMapping(value = ApiPath.GET_SIMPANAN_BY_ID,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestSingleResponse<SimpananDetailResponse>> updateSimpanan(
+            @PathVariable String id,
+            @RequestBody SimpananRequest request) {
+        return simpananService.updateSimpanan(id, request)
+                .map(this::createDetailResponse)
+                .map(this::toSingleResponse)
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     private List<SimpananDetailResponse> createDetailResponseList(List<Simpanan> simpananList) {
         return simpananList.stream()
                 .map(this::createDetailResponse)
