@@ -3,15 +3,15 @@ package com.kopwan.controller;
 import com.kopwan.model.Anggota;
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.enums.FeatureCode;
+import com.kopwan.model.request.AnggotaRequest;
+import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestListResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.anggota.AnggotaResponse;
 import com.kopwan.service.AnggotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -33,12 +33,44 @@ public class AnggotaController extends BaseController{
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @GetMapping(value = ApiPath.GET_ALL_ANGGOTA,
+    @PostMapping(value = ApiPath.ANGGOTA,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> createAnggota(@RequestBody AnggotaRequest request) {
+        return anggotaService.createAnggota(request)
+                .thenReturn(toBaseResponse())
+                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.ANGGOTA,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestListResponse<AnggotaResponse>> getAllAnggota() {
-        return anggotaService.findAllAnggota()
-                .map(this::createAnggotaResponseList)
-                .map(this::toListResponse)
+    public Mono<RestListResponse<AnggotaResponse>> getAllAnggota(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return anggotaService.findAllAnggota(buildPageRequest(page, size))
+                .map(data -> toListResponse(createAnggotaResponseList(data.getContent()),
+                        buildPageMetaData(page, size, data.getTotalElements())))
+                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PutMapping(value = ApiPath.ANGGOTA,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestSingleResponse<AnggotaResponse>> updateAnggota(@RequestBody AnggotaRequest request) {
+        return anggotaService.updateAnggota(request)
+                .map(this::createAnggotaResponse)
+                .map(this::toSingleResponse)
+                .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @DeleteMapping(value = ApiPath.GET_ANGGOTA_BY_NO,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> deleteAnggota(@PathVariable String no) {
+        return anggotaService.deleteAnggota(no)
+                .thenReturn(toBaseResponse())
                 .doOnError(e -> handleError(FeatureCode.GET_ANGGOTA_BY_NAME, e))
                 .subscribeOn(Schedulers.elastic());
     }
@@ -51,7 +83,9 @@ public class AnggotaController extends BaseController{
 
     private AnggotaResponse createAnggotaResponse(Anggota anggota) {
         return AnggotaResponse.builder()
+                .no(anggota.getNo())
                 .name(anggota.getName())
+                .rw(anggota.getRw())
                 .build();
     }
 }
