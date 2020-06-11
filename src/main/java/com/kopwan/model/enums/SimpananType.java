@@ -5,7 +5,8 @@ import com.kopwan.model.exception.DataNotFoundException;
 public enum SimpananType {
     POKOK("POKOK"),
     WAJIB("WAJIB"),
-    SUKARELA("SUKARELA");
+    SUKARELA("SUKARELA"),
+    DUKA("DUKA");
 
     private final String description;
 
