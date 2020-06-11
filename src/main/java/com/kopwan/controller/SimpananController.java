@@ -54,6 +54,15 @@ public class SimpananController extends BaseController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @DeleteMapping(value = ApiPath.GET_SIMPANAN_BY_ID,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> deleteAnggota(@PathVariable String id) {
+        return simpananService.deleteSimpanan(id)
+                .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     private List<SimpananDetailResponse> createDetailResponseList(List<Simpanan> simpananList) {
         return simpananList.stream()
                 .map(this::createDetailResponse)
