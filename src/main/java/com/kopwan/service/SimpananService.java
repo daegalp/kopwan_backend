@@ -5,8 +5,12 @@ import com.kopwan.model.entity.Simpanan;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.request.SimpananRequest;
+import com.kopwan.model.request.param.SimpananParamRequest;
 import com.kopwan.service.util.SimpananServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -38,5 +42,9 @@ public class SimpananService {
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.SIMPANAN_NOT_FOUND)))
                 .flatMap(result -> simpananRepository.save(util.delete(result)))
                 .then();
+    }
+
+    public Mono<Page<Simpanan>> filterSimpanan(SimpananParamRequest request){
+        return simpananRepository.filterSimpanan(request);
     }
 }
