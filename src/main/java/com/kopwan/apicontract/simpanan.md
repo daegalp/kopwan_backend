@@ -2,6 +2,7 @@
 - [1) Get Simpanan by Id [GET]](#getById)
 - [2) Create Simpanan [POST]](#create)
 - [3) Update Simpanan [PUT]](#udpate)
+- [4) Delete Simpanan [DELETE]](#delete)
 
 <br>
 
@@ -100,5 +101,22 @@
              "year": 2020
         }
     }
+
+<br>
+
+# 4) Delete Simpanan<a name="delete"></a>
+### DELETE /api/simpanan/{id}
+
+### Validation
+- id should unique
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true
+	}
 
 <br>
