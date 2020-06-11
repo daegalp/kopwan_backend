@@ -86,6 +86,7 @@
 
 ### Validation
 - no anggota should unique
+- semua request body harus diisi
 
 ### Request Body
 
