@@ -9,4 +9,7 @@ public class ApiPath {
     // SIMPANAN PATH
     public static final String SIMPANAN = "/api/simpanan";
     public static final String GET_SIMPANAN_BY_ID = "/api/simpanan/{id}";
+
+    // PINJAMAN PATH
+    public static final String PINJAMAN = "/api/pinjaman";
 }
