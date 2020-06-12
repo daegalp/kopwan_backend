@@ -10,6 +10,7 @@ public enum ErrorCode {
     INVALID_PAGINATION_OF_MAX_SIZE("ERR-PA400003", 400,
             "Input of size can't be more than maximum size 999. It should start from 1"),
     NO_ANGGOTA_NOT_UNIQUE("ERR-PA400004", 400, "No Anggota must be unique"),
+    ANGGOTA_STILL_HAS_PINJAMAN("ERR-PA400005", 400, "Anggota still has pinjaman"),
 
     INVALID_SIMPANAN_TYPE("ERR-PA403001", 403,
             "Invalid Simpanan Type"),
