@@ -35,7 +35,7 @@ public class PinjamanController extends BaseController {
 
     @GetMapping(value = ApiPath.PINJAMAN,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestListResponse<PinjamanResponse>> getAllSimpananByMonthAndYear(
+    public Mono<RestListResponse<PinjamanResponse>> filterPinjaman(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "999") int rw,
