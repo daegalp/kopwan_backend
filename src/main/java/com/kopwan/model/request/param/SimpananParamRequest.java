@@ -21,6 +21,7 @@ public class SimpananParamRequest {
 
     private int rw;
     private int no;
+    private String name;
     private String type;
     private String month;
     private int year;
