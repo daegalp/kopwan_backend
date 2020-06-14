@@ -32,6 +32,12 @@ public class CicilanPinjamanService {
                 .then();
     }
 
+    public Mono<CicilanPinjaman> updateCicilan(String id, CicilanRequest request) {
+        return repository.findByIdAndMarkForDeleteFalse(id)
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.CICILAN_NOT_FOUND)))
+                .flatMap(result -> repository.save(util.copyRequest(request, result)));
+    }
+
     public Mono<Void> deleteCicilanPinjaman(String id) {
         return repository.findByIdAndMarkForDeleteFalse(id)
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.CICILAN_NOT_FOUND)))
