@@ -5,6 +5,7 @@ import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.request.AnggotaRequest;
+import com.kopwan.model.response.anggota.AnggotaResponse;
 import com.kopwan.service.util.AnggotaServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,5 +56,11 @@ public class AnggotaService {
     public Mono<Anggota> findByNoAnggota(String no) {
         return anggotaRepository.findByNoAndMarkForDeleteFalse(no)
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)));
+    }
+
+    public Mono<AnggotaResponse> findAnggotaResponseByNo(String no) {
+        return anggotaRepository.findByNoAndMarkForDeleteFalse(no)
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
+                .map(anggota -> anggotaServiceUtil.convertToAnggotaResponse(anggota));
     }
 }
