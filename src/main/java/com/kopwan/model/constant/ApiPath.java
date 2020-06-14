@@ -12,4 +12,5 @@ public class ApiPath {
 
     // PINJAMAN PATH
     public static final String PINJAMAN = "/api/pinjaman";
+    public static final String PINJAMAN_BY_ID = "/api/pinjaman/{id}";
 }
