@@ -39,7 +39,7 @@ public class PinjamanService {
 
     public Mono<Void> deletePinjaman(String id) {
         return pinjamanRepository.findByIdAndMarkForDeleteFalse(id)
-                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.SIMPANAN_NOT_FOUND)))
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.PINJAMAN_NOT_FOUND)))
                 .flatMap(result -> pinjamanRepository.save(util.delete(result)))
                 .then();
     }
