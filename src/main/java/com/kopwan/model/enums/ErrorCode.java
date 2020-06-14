@@ -23,6 +23,8 @@ public enum ErrorCode {
             404, "Cannot find simpanan by id"),
     PINJAMAN_NOT_FOUND("ERR-PA404004",
             404, "Cannot find pinjaman by id"),
+    CICILAN_NOT_FOUND("ERR-PA404005",
+            404, "Cannot find cicilan pinjaman by id"),
 
     UNSPECIFIED_ERROR("ERR-PI500001",500,
             "Unspecified error that not handled by generic handler");
