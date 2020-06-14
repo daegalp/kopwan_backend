@@ -36,14 +36,13 @@
 # 2) Create Simpanan<a name="create"></a>
 ### POST /api/simpanan
 
+### Validation
+- no anggota should be unique
+
 ### Request Body
 
 	{
-		"anggota": {
-		    "no": "2",
-		    "name": "ega",
-		    "rw": 3
-		 },
+		 "no" : 1,
 		 "type": "POKOK",
 		 "nominal": 30000,
 		 "month": "Januari",
@@ -71,11 +70,6 @@
 ### Request Body
 
 	{
-		"anggota" : {
-		    "no" : "2",
-		    "name" : "ega",
-		    "rw" : 3
-		 },
 		 "type" : "POKOK",
 		 "nominal" : 30000,
 		 "month" : "Januari",
