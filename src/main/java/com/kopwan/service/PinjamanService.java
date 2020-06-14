@@ -8,7 +8,6 @@ import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.exception.ValidationException;
 import com.kopwan.model.request.PinjamanRequest;
 import com.kopwan.model.request.param.PinjamanParamRequest;
-import com.kopwan.model.response.anggota.AnggotaResponse;
 import com.kopwan.service.util.AnggotaServiceUtil;
 import com.kopwan.service.util.PinjamanServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
