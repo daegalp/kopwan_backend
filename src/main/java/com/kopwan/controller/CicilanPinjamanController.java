@@ -2,6 +2,7 @@ package com.kopwan.controller;
 
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.entity.CicilanPinjaman;
+import com.kopwan.model.request.CicilanRequest;
 import com.kopwan.model.request.param.CicilanPinjamanParam;
 import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestListResponse;
@@ -20,6 +21,16 @@ import java.util.stream.Collectors;
 public class CicilanPinjamanController extends BaseController {
     @Autowired
     private CicilanPinjamanService service;
+
+    @PostMapping(value = ApiPath.CICILAN,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> createCicilanPinjaman(@RequestBody CicilanRequest request) {
+        return service.createCicilan(request)
+                .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
 
     @GetMapping(value = ApiPath.CICILAN,
             produces = MediaType.APPLICATION_JSON_VALUE)
