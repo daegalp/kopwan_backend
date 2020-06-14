@@ -2,6 +2,7 @@ package com.kopwan.controller;
 
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.entity.Pinjaman;
+import com.kopwan.model.request.CicilanRequest;
 import com.kopwan.model.request.PinjamanRequest;
 import com.kopwan.model.request.param.PinjamanParamRequest;
 import com.kopwan.model.response.RestBaseResponse;
@@ -59,6 +60,16 @@ public class PinjamanController extends BaseController {
         return pinjamanService.updatePinjaman(id, request)
                 .map(this::createPinjamanResponse)
                 .map(this::toSingleResponse)
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PutMapping(value = ApiPath.PINJAMAN,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> updateLunas(@RequestBody CicilanRequest request) {
+        return pinjamanService.updateLunas(request)
+                .thenReturn(toBaseResponse())
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
