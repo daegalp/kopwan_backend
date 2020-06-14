@@ -37,4 +37,10 @@ public class PinjamanServiceUtil {
         pinjaman.setActual(pinjaman.getActual() + 1);
         return pinjaman;
     }
+
+    public Pinjaman lunas(Pinjaman pinjaman) {
+        pinjaman.setActual(pinjaman.getActual() + 1);
+        pinjaman.setLunas(true);
+        return pinjaman;
+    }
 }
