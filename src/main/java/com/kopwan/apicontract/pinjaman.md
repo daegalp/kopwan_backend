@@ -3,6 +3,7 @@
 - [2) Update Pinjaman [PUT]](#update)
 - [3) Delete Pinjaman [DELETE]](#delete)
 - [4) Filter Pinjaman [GET]](#filter)
+- [5) Update Lunas Pinjaman [PUT]](#lunas)
 
 # 1) Create Pinjaman<a name="create"></a>
 ### POST /api/pinjaman
@@ -141,5 +142,31 @@
                 "totalRecords": 2
             }
 	}
+
+<br>
+
+# 5) Update Lunas Pinjaman<a name="lunas"></a>
+### PUT /api/pinjaman
+
+### Validation
+- no anggota should unique
+- semua request body harus diisi
+
+### Request Body
+
+	{
+		 "no" : 3,
+		 "month" : "Maret",
+		 "year" : 2020
+	}
+
+### Response Body
+
+	{
+        "requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+        "errorMessage": null,
+        "errorCode": null,
+        "success": true
+    }
 
 <br>
