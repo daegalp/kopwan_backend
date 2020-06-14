@@ -130,6 +130,7 @@
 - OPTIONAL - size
 - OPTIONAL - rw (1 - 9)
 - OPTIONAL - no --> no anggota
+- OPTIONAL - name --> using like filter
 - OPTIONAL - type (POKOK / WAJIB / SUKARELA / DUKA)
 - OPTIONAL - month
 - OPTIONAL - year
