@@ -44,4 +44,9 @@ public class CicilanPinjamanService {
                 .flatMap(result -> repository.save(util.delete(result)))
                 .then();
     }
+
+    public Mono<CicilanPinjaman> lunasCicilan (CicilanRequest request) {
+        return pinjamanService.findByNoAnggota(request.getNo())
+                .flatMap(result -> repository.save(util.lunas(request, result)));
+    }
 }
