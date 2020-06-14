@@ -129,6 +129,7 @@
 - OPTIONAL - page
 - OPTIONAL - size
 - OPTIONAL - rw (1 - 9)
+- OPTIONAL - no --> no anggota
 - OPTIONAL - type (POKOK / WAJIB / SUKARELA / DUKA)
 - OPTIONAL - month
 - OPTIONAL - year
