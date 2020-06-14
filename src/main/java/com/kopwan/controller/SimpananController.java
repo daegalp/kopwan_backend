@@ -71,10 +71,11 @@ public class SimpananController extends BaseController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "999") int rw,
+            @RequestParam(defaultValue = "999") int no,
             @RequestParam(defaultValue = "") String type,
             @RequestParam(defaultValue = "") String month,
             @RequestParam(defaultValue = "999") int year) {
-        return simpananService.filterSimpanan(createParamRequest(page, size, type, month, year, rw))
+        return simpananService.filterSimpanan(createParamRequest(page, size, no, type, month, year, rw))
                 .map(data -> toListResponse(createDetailResponseList(data.getContent()),
                         buildPageMetaData(page, size, data.getTotalElements())))
                 .doOnError(this::handleError)
@@ -98,12 +99,13 @@ public class SimpananController extends BaseController {
                 .build();
     }
 
-    private SimpananParamRequest createParamRequest(int page, int size, String type, String month, int year, int rw){
+    private SimpananParamRequest createParamRequest(int page, int size, int no, String type, String month, int year, int rw){
         buildPageRequest(page, size);
         return SimpananParamRequest.builder()
                 .page(page)
                 .size(size)
                 .rw(rw)
+                .no(no)
                 .type(type)
                 .month(month)
                 .year(year)
