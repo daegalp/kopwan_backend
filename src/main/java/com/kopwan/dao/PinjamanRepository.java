@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface PinjamanRepository extends ReactiveMongoRepository<Pinjaman, String> {
+public interface PinjamanRepository extends ReactiveMongoRepository<Pinjaman, String>, PinjamanRepositoryCustom {
     Mono<Pinjaman> findByIdAndMarkForDeleteFalse(String id);
     Mono<Pinjaman> findByAnggotaAndLunasFalseAndMarkForDeleteFalse(AnggotaResponse anggota);
 }
