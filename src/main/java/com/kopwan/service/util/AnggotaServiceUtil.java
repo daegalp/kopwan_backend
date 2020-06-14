@@ -2,6 +2,7 @@ package com.kopwan.service.util;
 
 import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.request.AnggotaRequest;
+import com.kopwan.model.response.anggota.AnggotaResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -22,5 +23,13 @@ public class AnggotaServiceUtil {
     public Anggota delete(Anggota anggota){
         anggota.setMarkForDelete(true);
         return anggota;
+    }
+
+    public AnggotaResponse convertToAnggotaResponse(Anggota anggota) {
+        return AnggotaResponse.builder()
+                .rw(anggota.getRw())
+                .no(anggota.getNo())
+                .name(anggota.getName())
+                .build();
     }
 }
