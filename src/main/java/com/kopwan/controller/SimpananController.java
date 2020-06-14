@@ -67,7 +67,7 @@ public class SimpananController extends BaseController {
 
     @GetMapping(value = ApiPath.SIMPANAN,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestListResponse<SimpananDetailResponse>> getAllSimpananByMonthAndYear(
+    public Mono<RestListResponse<SimpananDetailResponse>> filterSimpanan(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "999") int rw,
