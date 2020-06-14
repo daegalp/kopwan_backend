@@ -6,6 +6,7 @@ import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.request.SimpananRequest;
 import com.kopwan.model.request.param.SimpananParamRequest;
+import com.kopwan.service.util.AnggotaServiceUtil;
 import com.kopwan.service.util.SimpananServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,15 @@ public class SimpananService {
     private SimpananRepository simpananRepository;
     @Autowired
     private SimpananServiceUtil util;
+    @Autowired
+    private AnggotaService anggotaService;
+    @Autowired
+    private AnggotaServiceUtil anggotaServiceUtil;
 
     public Mono<Void> createSimpanan(SimpananRequest request){
-        return simpananRepository.save(util.convertToSimpanan(request))
+        return anggotaService.findByNoAnggota(request.getNo())
+                .map(anggota -> anggotaServiceUtil.convertToAnggotaResponse(anggota))
+                .flatMap(result -> simpananRepository.save(util.convertToSimpanan(request, result)))
                 .then();
     }
 
