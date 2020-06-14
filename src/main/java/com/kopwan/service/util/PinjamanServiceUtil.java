@@ -22,4 +22,14 @@ public class PinjamanServiceUtil {
         BeanUtils.copyProperties(request, pinjaman);
         return pinjaman;
     }
+
+    public Pinjaman delete(Pinjaman pinjaman) {
+        pinjaman.setMarkForDelete(true);
+        return pinjaman;
+    }
+
+    public Pinjaman copyRequest(PinjamanRequest request, Pinjaman result){
+        BeanUtils.copyProperties(request, result);
+        return result;
+    }
 }
