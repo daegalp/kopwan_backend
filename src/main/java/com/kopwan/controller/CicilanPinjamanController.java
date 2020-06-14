@@ -6,7 +6,9 @@ import com.kopwan.model.request.CicilanRequest;
 import com.kopwan.model.request.param.CicilanPinjamanParam;
 import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestListResponse;
+import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.cicilan.CicilanPinjamanResponse;
+import com.kopwan.model.response.pinjaman.PinjamanResponse;
 import com.kopwan.service.CicilanPinjamanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -45,6 +47,19 @@ public class CicilanPinjamanController extends BaseController {
         return service.filterCicilan(createParamRequest(page, size, no, name, month, year, rw))
                 .map(data -> toListResponse(createResponseList(data.getContent()),
                         buildPageMetaData(page, size, data.getTotalElements())))
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PutMapping(value = ApiPath.CICILAN_BY_ID,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestSingleResponse<CicilanPinjamanResponse>> updateCicilanPinjaman(
+            @PathVariable String id,
+            @RequestBody CicilanRequest request) {
+        return service.updateCicilan(id, request)
+                .map(this::createResponse)
+                .map(this::toSingleResponse)
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
