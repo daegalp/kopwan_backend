@@ -1,11 +1,11 @@
 package com.kopwan.service;
 
 import com.kopwan.dao.PinjamanRepository;
-import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.entity.Pinjaman;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.exception.ValidationException;
+import com.kopwan.model.request.CicilanRequest;
 import com.kopwan.model.request.PinjamanRequest;
 import com.kopwan.model.request.param.PinjamanParamRequest;
 import com.kopwan.service.util.AnggotaServiceUtil;
@@ -24,7 +24,7 @@ public class PinjamanService {
     @Autowired
     private AnggotaService anggotaService;
     @Autowired
-    private AnggotaServiceUtil anggotaServiceUtil;
+    private CicilanPinjamanService cicilanPinjamanService;
 
     public Mono<Void> createPinjaman(PinjamanRequest request){
         return pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(util.convertToAnggota(request))
@@ -51,8 +51,7 @@ public class PinjamanService {
     }
 
     public Mono<Pinjaman> findByNoAnggota(String no) {
-        return anggotaService.findByNoAnggota(no)
-                .map(anggota -> anggotaServiceUtil.convertToAnggotaResponse(anggota))
+        return anggotaService.findAnggotaResponseByNo(no)
                 .flatMap(anggota -> pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(anggota))
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.ANGGOTA_DOESNT_HAS_PINJAMAN)));
     }
@@ -60,6 +59,13 @@ public class PinjamanService {
     public Mono<Void> updateActual(String no) {
         return this.findByNoAnggota(no)
                 .flatMap(pinjaman -> pinjamanRepository.save(util.updateActual(pinjaman)))
+                .then();
+    }
+
+    public Mono<Void> updateLunas(CicilanRequest request) {
+        return cicilanPinjamanService.lunasCicilan(request)
+                .flatMap(result -> findByNoAnggota(request.getNo()))
+                .flatMap(result -> pinjamanRepository.save(util.lunas(result)))
                 .then();
     }
 }
