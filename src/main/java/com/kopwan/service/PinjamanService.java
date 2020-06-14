@@ -1,12 +1,14 @@
 package com.kopwan.service;
 
 import com.kopwan.dao.PinjamanRepository;
+import com.kopwan.model.entity.Anggota;
 import com.kopwan.model.entity.Pinjaman;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
 import com.kopwan.model.exception.ValidationException;
 import com.kopwan.model.request.PinjamanRequest;
 import com.kopwan.model.request.param.PinjamanParamRequest;
+import com.kopwan.model.response.anggota.AnggotaResponse;
 import com.kopwan.service.util.PinjamanServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,8 @@ public class PinjamanService {
     private PinjamanRepository pinjamanRepository;
     @Autowired
     private PinjamanServiceUtil util;
+    @Autowired
+    private AnggotaService anggotaService;
 
     public Mono<Void> createPinjaman(PinjamanRequest request){
         return pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(util.convertToAnggota(request))
@@ -42,5 +46,26 @@ public class PinjamanService {
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.PINJAMAN_NOT_FOUND)))
                 .flatMap(result -> pinjamanRepository.save(util.delete(result)))
                 .then();
+    }
+
+    public Mono<Pinjaman> findByNoAnggota(String no) {
+        return anggotaService.findByNoAnggota(no)
+                .map(this::convertToAnggotaResponse)
+                .flatMap(anggota -> pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(anggota))
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.ANGGOTA_DOESNT_HAS_PINJAMAN)));
+    }
+
+    public Mono<Void> updateActual(String no) {
+        return this.findByNoAnggota(no)
+                .flatMap(pinjaman -> pinjamanRepository.save(util.updateActual(pinjaman)))
+                .then();
+    }
+
+    private AnggotaResponse convertToAnggotaResponse(Anggota anggota) {
+        return AnggotaResponse.builder()
+                .rw(anggota.getRw())
+                .no(anggota.getNo())
+                .name(anggota.getName())
+                .build();
     }
 }
