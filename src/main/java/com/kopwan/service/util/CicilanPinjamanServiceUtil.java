@@ -3,6 +3,7 @@ package com.kopwan.service.util;
 import com.kopwan.model.entity.CicilanPinjaman;
 import com.kopwan.model.entity.Pinjaman;
 import com.kopwan.model.request.CicilanRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +22,11 @@ public class CicilanPinjamanServiceUtil {
     public CicilanPinjaman delete(CicilanPinjaman cicilanPinjaman) {
         cicilanPinjaman.setMarkForDelete(true);
         return cicilanPinjaman;
+    }
+
+    public CicilanPinjaman copyRequest(CicilanRequest request, CicilanPinjaman result){
+        BeanUtils.copyProperties(request, result);
+        return result;
     }
 
     private int getValuePokok(int nominal, int target) {
