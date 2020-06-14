@@ -2,6 +2,7 @@
 - [1) Filter Cicilan Pinjaman [GET]](#filter)
 - [2) Delete Cicilan Pinjaman [DELETE]](#delete)
 - [3) Create Cicilan Pinjaman [POST]](#create)
+- [4) Update Cicilan Pinjaman [PUT]](#update)
 
 # 1) Filter Cicilan Pinjaman <a name="filter"></a>
 ### GET /api/cicilan
@@ -84,5 +85,42 @@
 		"errorCode": null,
 		"success": true
 	}
+
+<br>
+
+# 4) Update Pinjaman<a name="update"></a>
+### PUT /api/pinjaman/{id}
+
+### Validation
+- id should unique
+- semua request body harus diisi
+
+### Request Body
+
+	{
+		 "month" : "Februari",
+		 "year" : 2020
+	}
+
+### Response Body
+
+	{
+        "requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+        "errorMessage": null,
+        "errorCode": null,
+        "success": true,
+        "content": {
+            "id": "5ee5a5b66d41ad2546317677",
+            "anggota": {
+                "no": "3",
+                "name": "kuuhaku",
+                "rw": 3
+            },
+            "pokok": 3000,
+            "jasa": 1500,
+            "month": "Februari",
+            "year": 2020
+        }
+    }
 
 <br>
