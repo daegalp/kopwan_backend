@@ -1,5 +1,6 @@
 # API Contract - Cicilan Pinjaman
-- [1) Filter Pinjaman [GET]](#filter)
+- [1) Filter Cicilan Pinjaman [GET]](#filter)
+- [2) Delete Cicilan Pinjaman [DELETE]](#delete)
 
 # 1) Filter Cicilan Pinjaman <a name="filter"></a>
 ### GET /api/cicilan
@@ -39,6 +40,23 @@
                 "pageNumber": 1,
                 "totalRecords": 2
             }
+	}
+
+<br>
+
+# 2) Delete Cicilan Pinjaman<a name="delete"></a>
+### DELETE /api/cicilan/{id}
+
+### Validation
+- id should unique
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true
 	}
 
 <br>
