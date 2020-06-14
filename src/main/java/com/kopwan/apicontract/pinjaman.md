@@ -2,6 +2,7 @@
 - [1) Create Pinjaman [POST]](#create)
 - [2) Update Pinjaman [PUT]](#update)
 - [3) Delete Pinjaman [DELETE]](#delete)
+- [4) Filter Pinjaman [GET]](#filter)
 
 # 1) Create Pinjaman<a name="create"></a>
 ### POST /api/pinjaman
@@ -95,6 +96,50 @@
 		"errorMessage": null,
 		"errorCode": null,
 		"success": true
+	}
+
+<br>
+
+# 4) Filter Pinjaman <a name="filter"></a>
+### GET /api/pinjaman
+
+### Params
+- OPTIONAL - page
+- OPTIONAL - size
+- OPTIONAL - rw (1 - 9)
+- OPTIONAL - no --> no anggota
+- OPTIONAL - name --> using like filter
+- OPTIONAL - month
+- OPTIONAL - year
+
+### Response Body
+	
+	{
+		"requestId": "ff187083-5bca-4501-a072-9a536eccd2be",
+            "errorMessage": null,
+            "errorCode": null,
+            "success": true,
+            "content": [
+                {
+                    "id": "5ee2f2e06263da10e44ebea7",
+                    "anggota": {
+                        "no": "3",
+                        "name": "kuuhaku",
+                        "rw": 3
+                    },
+                    "nominal": 30000,
+                    "month": "Februari",
+                    "year": 2020,
+                    "lunas": false,
+                    "actual": 0,
+                    "target": 10
+                }
+            ],
+            "pageMetaData": {
+                "pageSize": 10,
+                "pageNumber": 1,
+                "totalRecords": 2
+            }
 	}
 
 <br>
