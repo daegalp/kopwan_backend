@@ -36,6 +36,10 @@ public class SimpananRepositoryImpl implements SimpananRepositoryCustom {
             query.addCriteria(Criteria.where("anggota.rw")
                     .is(request.getRw()));
         }
+        if(request.getNo() != 999){
+            query.addCriteria(Criteria.where("anggota.no")
+                    .is(request.getNo()));
+        }
         if(request.getYear() != 999){
             query.addCriteria(Criteria.where("year")
                     .is(request.getYear()));
