@@ -29,11 +29,25 @@ public class CicilanPinjamanServiceUtil {
         return result;
     }
 
+    public CicilanPinjaman lunas(CicilanRequest request, Pinjaman pinjaman) {
+        return CicilanPinjaman.builder()
+                .anggota(pinjaman.getAnggota())
+                .pokok(getLunasPokok(pinjaman))
+                .jasa(getValueJasa(pinjaman.getNominal()))
+                .month(request.getMonth())
+                .year(request.getYear())
+                .build();
+    }
+
     private int getValuePokok(int nominal, int target) {
         return nominal / target;
     }
 
     private int getValueJasa(int nominal) {
         return nominal * 5 / 100;
+    }
+
+    private int getLunasPokok(Pinjaman pinjaman) {
+        return getValuePokok(pinjaman.getNominal(), pinjaman.getTarget()) * (pinjaman.getTarget() - pinjaman.getActual());
     }
 }
