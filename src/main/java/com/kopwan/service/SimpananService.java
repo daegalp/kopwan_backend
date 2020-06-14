@@ -27,8 +27,7 @@ public class SimpananService {
     private AnggotaServiceUtil anggotaServiceUtil;
 
     public Mono<Void> createSimpanan(SimpananRequest request){
-        return anggotaService.findByNoAnggota(request.getNo())
-                .map(anggota -> anggotaServiceUtil.convertToAnggotaResponse(anggota))
+        return anggotaService.findAnggotaResponseByNo(request.getNo())
                 .flatMap(result -> simpananRepository.save(util.convertToSimpanan(request, result)))
                 .then();
     }
