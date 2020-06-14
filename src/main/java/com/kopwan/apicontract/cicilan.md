@@ -1,6 +1,7 @@
 # API Contract - Cicilan Pinjaman
 - [1) Filter Cicilan Pinjaman [GET]](#filter)
 - [2) Delete Cicilan Pinjaman [DELETE]](#delete)
+- [3) Create Cicilan Pinjaman [POST]](#create)
 
 # 1) Filter Cicilan Pinjaman <a name="filter"></a>
 ### GET /api/cicilan
@@ -49,6 +50,31 @@
 
 ### Validation
 - id should unique
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true
+	}
+
+<br>
+
+# 3) Create Cicilan Pinjaman<a name="create"></a>
+### POST /api/cicilan
+
+### Validation
+- no anggota should be unique
+
+### Request Body
+
+	{
+		"no" : 3,
+		"month" : "Februari",
+		"year" : 2020
+	}
 
 ### Response Body
 
