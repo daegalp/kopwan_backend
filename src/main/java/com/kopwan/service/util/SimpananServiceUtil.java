@@ -9,15 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpananServiceUtil {
 
-    public Simpanan convertToSimpanan(SimpananRequest request){
+    public Simpanan convertToSimpanan(SimpananRequest request, AnggotaResponse anggota){
         Simpanan simpanan = new Simpanan();
         BeanUtils.copyProperties(request, simpanan);
-
-        if (request.getAnggota() != null) {
-            AnggotaResponse anggota = new AnggotaResponse();
-            BeanUtils.copyProperties(request.getAnggota(), anggota);
-            simpanan.setAnggota(anggota);
-        }
+        simpanan.setAnggota(anggota);
 
         return simpanan;
     }
