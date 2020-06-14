@@ -8,5 +8,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface PinjamanRepository extends ReactiveMongoRepository<Pinjaman, String> {
+    Mono<Pinjaman> findByIdAndMarkForDeleteFalse(String id);
     Mono<Pinjaman> findByAnggotaAndLunasFalseAndMarkForDeleteFalse(AnggotaResponse anggota);
 }
