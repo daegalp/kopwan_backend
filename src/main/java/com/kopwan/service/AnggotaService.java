@@ -51,4 +51,9 @@ public class AnggotaService {
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
                 .flatMap(result -> anggotaRepository.save(anggotaServiceUtil.delete(result)));
     }
+
+    public Mono<Anggota> findByNoAnggota(String no) {
+        return anggotaRepository.findByNoAndMarkForDeleteFalse(no)
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)));
+    }
 }
