@@ -3,7 +3,9 @@ package com.kopwan.controller;
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.entity.Pinjaman;
 import com.kopwan.model.request.PinjamanRequest;
+import com.kopwan.model.request.param.PinjamanParamRequest;
 import com.kopwan.model.response.RestBaseResponse;
+import com.kopwan.model.response.RestListResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.pinjaman.PinjamanResponse;
 import com.kopwan.service.PinjamanService;
@@ -12,6 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class PinjamanController extends BaseController {
@@ -24,6 +29,23 @@ public class PinjamanController extends BaseController {
     public Mono<RestBaseResponse> createPinjaman(@RequestBody PinjamanRequest request) {
         return pinjamanService.createPinjaman(request)
                 .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.PINJAMAN,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestListResponse<PinjamanResponse>> getAllSimpananByMonthAndYear(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "999") int rw,
+            @RequestParam(defaultValue = "999") int no,
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "") String month,
+            @RequestParam(defaultValue = "999") int year) {
+        return pinjamanService.filterPinjaman(createParamRequest(page, size, no, name, month, year, rw))
+                .map(data -> toListResponse(createPinjamanResponseList(data.getContent()),
+                        buildPageMetaData(page, size, data.getTotalElements())))
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
@@ -50,6 +72,12 @@ public class PinjamanController extends BaseController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    private List<PinjamanResponse> createPinjamanResponseList(List<Pinjaman> pinjamanList) {
+        return pinjamanList.stream()
+                .map(this::createPinjamanResponse)
+                .collect(Collectors.toList());
+    }
+
     private PinjamanResponse createPinjamanResponse(Pinjaman pinjaman) {
         return PinjamanResponse.builder()
                 .id(pinjaman.getId())
@@ -60,6 +88,20 @@ public class PinjamanController extends BaseController {
                 .year(pinjaman.getYear())
                 .actual(pinjaman.getActual())
                 .target(pinjaman.getTarget())
+                .build();
+    }
+
+    private PinjamanParamRequest createParamRequest(int page, int size, int no, String name,
+                                                    String month, int year, int rw){
+        buildPageRequest(page, size);
+        return PinjamanParamRequest.builder()
+                .page(page)
+                .size(size)
+                .rw(rw)
+                .no(no)
+                .name(name)
+                .month(month)
+                .year(year)
                 .build();
     }
 }
