@@ -32,4 +32,9 @@ public class PinjamanServiceUtil {
         BeanUtils.copyProperties(request, result);
         return result;
     }
+
+    public Pinjaman updateActual(Pinjaman pinjaman) {
+        pinjaman.setActual(pinjaman.getActual() + 1);
+        return pinjaman;
+    }
 }
