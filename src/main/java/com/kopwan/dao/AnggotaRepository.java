@@ -9,7 +9,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface AnggotaRepository extends ReactiveMongoRepository<Anggota, String> {
-    Mono<Anggota> findByNameAndMarkForDeleteFalse(String name);
     Mono<Anggota> findByNoAndMarkForDeleteFalse(String no);
     Flux<Anggota> findAllByMarkForDeleteFalseOrderByRw(Pageable pageable);
 
