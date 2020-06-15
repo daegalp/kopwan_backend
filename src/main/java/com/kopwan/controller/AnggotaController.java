@@ -22,10 +22,10 @@ public class AnggotaController extends BaseController{
     @Autowired
     private AnggotaService anggotaService;
 
-    @GetMapping(value = ApiPath.GET_ANGGOTA_BY_NAME,
+    @GetMapping(value = ApiPath.ANGGOTA_BY_NO,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<RestSingleResponse<AnggotaResponse>> getAnggota(@PathVariable String name) {
-        return anggotaService.findAnggotaByName(name)
+    public Mono<RestSingleResponse<AnggotaResponse>> getAnggota(@PathVariable String no) {
+        return anggotaService.findByNoAnggota(no)
                 .map(this::createAnggotaResponse)
                 .map(this::toSingleResponse)
                 .doOnError(this::handleError)
@@ -65,7 +65,7 @@ public class AnggotaController extends BaseController{
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @DeleteMapping(value = ApiPath.GET_ANGGOTA_BY_NO,
+    @DeleteMapping(value = ApiPath.ANGGOTA_BY_NO,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<RestBaseResponse> deleteAnggota(@PathVariable String no) {
         return anggotaService.deleteAnggota(no)
