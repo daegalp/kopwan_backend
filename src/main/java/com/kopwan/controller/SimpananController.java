@@ -70,12 +70,12 @@ public class SimpananController extends BaseController {
     public Mono<RestListResponse<SimpananDetailResponse>> filterSimpanan(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "999") int rw,
-            @RequestParam(defaultValue = "999") int no,
+            @RequestParam(defaultValue = "0") int rw,
+            @RequestParam(defaultValue = "0") int no,
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") String type,
-            @RequestParam(defaultValue = "999") int month,
-            @RequestParam(defaultValue = "999") int year) {
+            @RequestParam(defaultValue = "0") int month,
+            @RequestParam(defaultValue = "0") int year) {
         return simpananService.filterSimpanan(createParamRequest(page, size, no, name, type, month, year, rw))
                 .map(data -> toListResponse(createDetailResponseList(data.getContent()),
                         buildPageMetaData(page, size, data.getTotalElements())))
