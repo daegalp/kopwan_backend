@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CicilanRequest {
     private String no;
-    private String month;
+    private int month;
     private int year;
 }
