@@ -28,11 +28,11 @@ public class SimpananRepositoryImpl implements SimpananRepositoryCustom {
             query.addCriteria(Criteria.where("type")
                     .is(request.getType()));
         }
-        if(request.getRw() != 999){
+        if(request.getRw() != 0){
             query.addCriteria(Criteria.where("anggota.rw")
                     .is(request.getRw()));
         }
-        if(request.getNo() != 999){
+        if(request.getNo() != 0){
             query.addCriteria(Criteria.where("anggota.no")
                     .is(request.getNo()));
         }
@@ -40,15 +40,15 @@ public class SimpananRepositoryImpl implements SimpananRepositoryCustom {
             query.addCriteria(Criteria.where("anggota.name")
                     .regex(request.getName(), "i"));
         }
-        if (request.getMonth() != 999) {
+        if (request.getMonth() != 0) {
             query.addCriteria(Criteria.where("month")
                     .is(request.getMonth()));
         }
-        if(request.getYear() != 999){
+        if(request.getYear() != 0){
             query.addCriteria(Criteria.where("year")
                     .is(request.getYear()));
         }
-        if (request.getMonth() != 999 || request.getYear() != 999) {
+        if (request.getMonth() != 0 || request.getYear() != 0) {
             query.with(Sort.by(Sort.Direction.ASC, "anggota.rw"));
         }
         return repositoryUtil.findAllPageable(query, Simpanan.class, pageRequest);
