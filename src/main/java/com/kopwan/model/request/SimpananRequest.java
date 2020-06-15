@@ -14,6 +14,6 @@ public class SimpananRequest {
     private String no;
     private String type;
     private int nominal;
-    private String month;
+    private int month;
     private int year;
 }
