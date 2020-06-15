@@ -26,7 +26,7 @@
 		     },
 		     "type": "POKOK",
 		     "nominal": 30000,
-		     "month": "Januari",
+		     "month": 1,
 		     "year": 2020
 		}
 	}
@@ -45,7 +45,7 @@
 		 "no" : 1,
 		 "type": "POKOK",
 		 "nominal": 30000,
-		 "month": "Januari",
+		 "month": 1,
 		 "year": 2020
 	}
 
@@ -72,7 +72,7 @@
 	{
 		 "type" : "POKOK",
 		 "nominal" : 30000,
-		 "month" : "Januari",
+		 "month" : 1,
 		 "year" : 2020
 	}
 
@@ -92,7 +92,7 @@
              },
              "type": "POKOK",
              "nominal": 30000,
-             "month": "Januari",
+             "month": 1,
              "year": 2020
         }
     }
@@ -146,7 +146,7 @@
                     },
                     "type": "POKOK",
                     "nominal": 0,
-                    "month": "Februari",
+                    "month": 2,
                     "year": 2020
                 },
                 {
@@ -158,7 +158,7 @@
                     },
                     "type": "POKOK",
                     "nominal": 30000,
-                    "month": "Februari",
+                    "month": 2,
                     "year": 2020
                 }
             ],
