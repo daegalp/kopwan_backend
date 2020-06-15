@@ -20,7 +20,7 @@
 		    "rw" : 3
 		 },
 		 "nominal" : 30000,
-		 "month" : "Februari",
+		 "month" : 2,
 		 "year" : 2020,
 		 "target" : 10
 	}
@@ -53,7 +53,7 @@
 		 },
 		 "lunas" : false,
 		 "nominal" : 30000,
-		 "month" : "Februari",
+		 "month" : 2,
 		 "year" : 2020,
 		 "actual" : 0,
 		 "target" : 10
@@ -75,7 +75,7 @@
              },
              "lunas" : false,
              "nominal" : 30000,
-             "month" : "Februari",
+             "month" : 2,
              "year" : 2020,
              "actual" : 0,
              "target" : 10
@@ -129,7 +129,7 @@
                         "rw": 3
                     },
                     "nominal": 30000,
-                    "month": "Februari",
+                    "month": 2,
                     "year": 2020,
                     "lunas": false,
                     "actual": 0,
@@ -156,7 +156,7 @@
 
 	{
 		 "no" : 3,
-		 "month" : "Maret",
+		 "month" : 3,
 		 "year" : 2020
 	}
 
