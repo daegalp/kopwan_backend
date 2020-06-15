@@ -3,6 +3,7 @@
 - [2) Create Kas [POST]](#create)
 - [3) Update Kas [PUT]](#update)
 - [4) Delete Kas [PUT]](#delete)
+- [5) Generate Buku Kas [POST]](#generate)
 
 <br>
 
@@ -96,11 +97,32 @@
 
 <br>
 
-# 5) Delete Kas<a name="delete"></a>
+# 4) Delete Kas<a name="delete"></a>
 ### DELETE /api/kas/{no}
 
 ### Validation
 - id should unique
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true
+	}
+
+<br>
+
+# 5) Generate Buku kas<a name="generate"></a>
+### POST /api/kas/generate
+
+### Request Body
+
+	{
+		"month" : 2,
+		"year" : 2020
+	}
 
 ### Response Body
 
