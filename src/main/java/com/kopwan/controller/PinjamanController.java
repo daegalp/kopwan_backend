@@ -42,7 +42,7 @@ public class PinjamanController extends BaseController {
             @RequestParam(defaultValue = "999") int rw,
             @RequestParam(defaultValue = "999") int no,
             @RequestParam(defaultValue = "") String name,
-            @RequestParam(defaultValue = "") String month,
+            @RequestParam(defaultValue = "999") int month,
             @RequestParam(defaultValue = "999") int year) {
         return pinjamanService.filterPinjaman(createParamRequest(page, size, no, name, month, year, rw))
                 .map(data -> toListResponse(createPinjamanResponseList(data.getContent()),
@@ -103,7 +103,7 @@ public class PinjamanController extends BaseController {
     }
 
     private PinjamanParamRequest createParamRequest(int page, int size, int no, String name,
-                                                    String month, int year, int rw){
+                                                    int month, int year, int rw){
         buildPageRequest(page, size);
         return PinjamanParamRequest.builder()
                 .page(page)
