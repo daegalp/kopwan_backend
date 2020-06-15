@@ -33,7 +33,7 @@
                     },
                     "pokok" : 30000,
                     "jasa" : 5000,
-                    "month": "Februari",
+                    "month": 2,
                     "year": 2020
                 }
             ],
@@ -73,7 +73,7 @@
 
 	{
 		"no" : 3,
-		"month" : "Februari",
+		"month" : 2,
 		"year" : 2020
 	}
 
@@ -98,7 +98,7 @@
 ### Request Body
 
 	{
-		 "month" : "Februari",
+		 "month" : 2,
 		 "year" : 2020
 	}
 
@@ -118,7 +118,7 @@
             },
             "pokok": 3000,
             "jasa": 1500,
-            "month": "Februari",
+            "month": 2,
             "year": 2020
         }
     }
