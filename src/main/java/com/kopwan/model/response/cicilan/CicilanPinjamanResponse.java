@@ -19,6 +19,6 @@ public class CicilanPinjamanResponse {
     private AnggotaResponse anggota;
     private int pokok;
     private int jasa;
-    private String month;
+    private int month;
     private int year;
 }
