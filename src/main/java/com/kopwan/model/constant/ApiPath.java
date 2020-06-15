@@ -16,4 +16,8 @@ public class ApiPath {
     // CICILAN PINJAMAN PATH
     public static final String CICILAN = "/api/cicilan";
     public static final String CICILAN_BY_ID = "/api/cicilan/{id}";
+
+    // KAS PATH
+    public static final String KAS = "/api/kas";
+    public static final String KAS_BY_ID = "/api/kas/{id}";
 }
