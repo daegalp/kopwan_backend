@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 public class KasParamRequest {
+    private int page;
+    private int size;
+
     private int month;
     private int year;
 }
