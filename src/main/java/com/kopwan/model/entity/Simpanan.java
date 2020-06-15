@@ -19,6 +19,6 @@ public class Simpanan extends BaseEntity{
     private AnggotaResponse anggota;
     private String type;
     private int nominal;
-    private String month;
+    private int month;
     private int year;
 }
