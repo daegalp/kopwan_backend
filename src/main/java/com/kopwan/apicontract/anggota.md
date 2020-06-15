@@ -1,5 +1,5 @@
 # API Contract - Anggota
-- [1) Get Anggota [GET]](#get)
+- [1) Get Anggota By No [GET]](#get)
 - [2) Get All Anggota [GET]](#getAll)
 - [3) Create Anggota [POST]](#create)
 - [4) Update Anggota [PUT]](#update)
@@ -8,7 +8,7 @@
 <br>
 
 # 1) Get Anggota - Anggota<a name="get"></a>
-### GET /api/anggota/{name}
+### GET /api/anggota/{no}
 
 ### Response Body
 
