@@ -39,11 +39,11 @@ public class PinjamanController extends BaseController {
     public Mono<RestListResponse<PinjamanResponse>> filterPinjaman(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "999") int rw,
-            @RequestParam(defaultValue = "999") int no,
+            @RequestParam(defaultValue = "0") int rw,
+            @RequestParam(defaultValue = "0") int no,
             @RequestParam(defaultValue = "") String name,
-            @RequestParam(defaultValue = "999") int month,
-            @RequestParam(defaultValue = "999") int year) {
+            @RequestParam(defaultValue = "0") int month,
+            @RequestParam(defaultValue = "0") int year) {
         return pinjamanService.filterPinjaman(createParamRequest(page, size, no, name, month, year, rw))
                 .map(data -> toListResponse(createPinjamanResponseList(data.getContent()),
                         buildPageMetaData(page, size, data.getTotalElements())))
