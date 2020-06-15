@@ -20,4 +20,5 @@ public class ApiPath {
     // KAS PATH
     public static final String KAS = "/api/kas";
     public static final String KAS_BY_ID = "/api/kas/{id}";
+    public static final String GENERATE_KAS = "/api/kas/generate";
 }
