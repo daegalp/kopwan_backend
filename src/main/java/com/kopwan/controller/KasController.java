@@ -3,6 +3,7 @@ package com.kopwan.controller;
 import com.kopwan.model.constant.ApiPath;
 import com.kopwan.model.entity.Kas;
 import com.kopwan.model.request.KasRequest;
+import com.kopwan.model.request.param.KasParamRequest;
 import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.kas.KasResponse;
@@ -55,6 +56,17 @@ public class KasController extends BaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<RestBaseResponse> deleteKas(@PathVariable String id) {
         return kasService.deleteKas(id)
+                .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping(value = ApiPath.GENERATE_KAS,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> generateKasBulanan(@RequestBody KasParamRequest request) {
+        buildPageRequest(request.getPage(), request.getSize());
+        return kasService.generateBukuKas(request)
                 .thenReturn(toBaseResponse())
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
