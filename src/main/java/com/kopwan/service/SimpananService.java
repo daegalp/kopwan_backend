@@ -23,8 +23,6 @@ public class SimpananService {
     private SimpananServiceUtil util;
     @Autowired
     private AnggotaService anggotaService;
-    @Autowired
-    private AnggotaServiceUtil anggotaServiceUtil;
 
     public Mono<Void> createSimpanan(SimpananRequest request){
         return anggotaService.findAnggotaResponseByNo(request.getNo())
