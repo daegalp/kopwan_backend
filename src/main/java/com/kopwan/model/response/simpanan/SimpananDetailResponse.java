@@ -19,6 +19,6 @@ public class SimpananDetailResponse {
     private AnggotaResponse anggota;
     private String type;
     private int nominal;
-    private String month;
+    private int month;
     private int year;
 }
