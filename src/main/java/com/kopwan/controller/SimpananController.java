@@ -74,7 +74,7 @@ public class SimpananController extends BaseController {
             @RequestParam(defaultValue = "999") int no,
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") String type,
-            @RequestParam(defaultValue = "") String month,
+            @RequestParam(defaultValue = "999") int month,
             @RequestParam(defaultValue = "999") int year) {
         return simpananService.filterSimpanan(createParamRequest(page, size, no, name, type, month, year, rw))
                 .map(data -> toListResponse(createDetailResponseList(data.getContent()),
@@ -101,7 +101,7 @@ public class SimpananController extends BaseController {
     }
 
     private SimpananParamRequest createParamRequest(int page, int size, int no, String name,
-                                                    String type, String month, int year, int rw){
+                                                    String type, int month, int year, int rw){
         buildPageRequest(page, size);
         return SimpananParamRequest.builder()
                 .page(page)
