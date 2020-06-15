@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class PinjamanRequest {
     private AnggotaResponse anggota;
     private int nominal;
-    private String month;
+    private int month;
     private int year;
     private boolean lunas;
     private int actual;
