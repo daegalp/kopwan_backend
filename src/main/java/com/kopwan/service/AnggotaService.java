@@ -22,11 +22,6 @@ public class AnggotaService {
     @Autowired
     private AnggotaServiceUtil anggotaServiceUtil;
 
-    public Mono<Anggota> findAnggotaByName(String name) {
-        return anggotaRepository.findByNameAndMarkForDeleteFalse(name)
-                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NAME_NOT_FOUND)));
-    }
-
     public Mono<Void> createAnggota(AnggotaRequest request){
         return anggotaRepository.findByNoAndMarkForDeleteFalse(request.getNo())
                 .flatMap(data -> Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_UNIQUE)))
