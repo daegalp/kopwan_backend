@@ -18,7 +18,7 @@ public class Pinjaman extends BaseEntity {
     public static final String COLLECTION_NAME = "PINJAMAN";
     private AnggotaResponse anggota;
     private int nominal;
-    private String month;
+    private int month;
     private int year;
     private boolean lunas;
     private int actual;
