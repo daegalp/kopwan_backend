@@ -20,6 +20,6 @@ public class CicilanPinjamanParam {
     private int rw;
     private int no;
     private String name;
-    private String month;
+    private int month;
     private int year;
 }
