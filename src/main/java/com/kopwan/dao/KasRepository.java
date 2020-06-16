@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface KasRepository extends ReactiveMongoRepository<Kas, String> {
     Mono<Kas> findByIdAndMarkForDeleteFalse(String id);
-    Mono<Kas> findByMonthAndYearAndMarkForDeleteFalse(int month, int year);
+    Flux<Kas> findByMonthAndYearAndMarkForDeleteFalse(int month, int year);
     Flux<Kas> findAllByMonthAndYearAndMarkForDeleteFalse(int month, int year, Pageable pageable);
 
     Mono<Long> countAllByMonthAndYearAndMarkForDeleteFalse(int month, int year);
