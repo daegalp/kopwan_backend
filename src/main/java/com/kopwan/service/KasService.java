@@ -48,8 +48,9 @@ public class KasService {
         return kasRepository.findByIdAndMarkForDeleteFalse(id);
     }
 
-    public Mono<Kas> getByMonthAndYear(int month, int year) {
-        return kasRepository.findByMonthAndYearAndMarkForDeleteFalse(month, year);
+    public Mono<List<Kas>> getByMonthAndYear(int month, int year) {
+        return kasRepository.findByMonthAndYearAndMarkForDeleteFalse(month, year)
+                .collectList();
     }
 
     public Mono<Kas> updateKas(String id, KasRequest request){
@@ -98,7 +99,8 @@ public class KasService {
 
     public Mono<Void> generateBukuKas(KasParamRequest request) {
         return getByMonthAndYear(request.getMonth(), request.getYear())
-                .flatMap(data -> Mono.error(new ValidationException(ErrorCode.INVALID_GENERATE)))
+                .filter(data -> !data.isEmpty())
+                .flatMap(data -> Mono.error(new DataNotFoundException(ErrorCode.INVALID_GENERATE)))
                 .switchIfEmpty(generate(request))
                 .then();
     }
