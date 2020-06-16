@@ -70,7 +70,6 @@ public class KasController extends BaseController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<RestBaseResponse> generateKasBulanan(@RequestBody KasParamRequest request) {
-        buildPageRequest(request.getPage(), request.getSize());
         return kasService.generateBukuKas(request)
                 .thenReturn(toBaseResponse())
                 .doOnError(this::handleError)
