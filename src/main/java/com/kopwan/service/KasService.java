@@ -14,10 +14,7 @@ import com.kopwan.model.request.param.PinjamanParamRequest;
 import com.kopwan.model.request.param.SimpananParamRequest;
 import com.kopwan.service.util.KasServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -66,6 +63,13 @@ public class KasService {
                 .flatMap(count -> kasRepository.findAllByMonthAndYearAndMarkForDeleteFalse(month, year, pageable)
                         .collectList()
                         .map(data -> new PageImpl<>(data, pageable, count)));
+    }
+
+    public Mono<Void> deleteAllKasByMonthAndYear(int month, int year){
+        Pageable pageable = PageRequest.of(0, 999);
+        return kasRepository.findAllByMonthAndYearAndMarkForDeleteFalse(month, year, pageable)
+                .flatMap(results -> deleteKas(results.getId()))
+                .then();
     }
 
     public Mono<Void> generateBukuKas(KasParamRequest request) {
