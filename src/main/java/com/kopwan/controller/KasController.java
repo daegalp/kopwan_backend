@@ -90,6 +90,17 @@ public class KasController extends BaseController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @DeleteMapping(value = ApiPath.KAS,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestBaseResponse> deleteAllKasByMonthAndYear(
+            @RequestParam(defaultValue = "0") int month,
+            @RequestParam(defaultValue = "0") int year) {
+        return kasService.deleteAllKasByMonthAndYear(month, year)
+                .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     private List<KasResponse> createKasResponseList(List<Kas> kasList) {
         return kasList.stream()
                 .map(this::createKasResponse)
