@@ -8,6 +8,7 @@ import com.kopwan.model.response.RestBaseResponse;
 import com.kopwan.model.response.RestListResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.kas.KasResponse;
+import com.kopwan.model.response.kas.TotalKasResponse;
 import com.kopwan.service.KasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -97,6 +98,17 @@ public class KasController extends BaseController {
             @RequestParam(defaultValue = "0") int year) {
         return kasService.deleteAllKasByMonthAndYear(month, year)
                 .thenReturn(toBaseResponse())
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.KAS_TOTAL,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestSingleResponse<TotalKasResponse>> getTotalByMonthAndYear(
+            @RequestParam(defaultValue = "0") int month,
+            @RequestParam(defaultValue = "0") int year) {
+        return kasService.getTotalKasByMonthAndYear(month, year)
+                .map(this::toSingleResponse)
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
     }
