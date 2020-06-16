@@ -12,6 +12,7 @@ import com.kopwan.model.request.param.CicilanPinjamanParam;
 import com.kopwan.model.request.param.KasParamRequest;
 import com.kopwan.model.request.param.PinjamanParamRequest;
 import com.kopwan.model.request.param.SimpananParamRequest;
+import com.kopwan.model.response.kas.TotalKasResponse;
 import com.kopwan.service.util.KasServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -70,6 +71,24 @@ public class KasService {
         return kasRepository.findAllByMonthAndYearAndMarkForDeleteFalse(month, year, pageable)
                 .flatMap(results -> deleteKas(results.getId()))
                 .then();
+    }
+
+    public Mono<TotalKasResponse> getTotalKasByMonthAndYear(int month, int year) {
+        Pageable pageable = PageRequest.of(0, 999);
+        return kasRepository.findAllByMonthAndYearAndMarkForDeleteFalse(month, year, pageable)
+                .collectList()
+                .map(this::countTotalKas);
+    }
+
+    private TotalKasResponse countTotalKas(List<Kas> kasList) {
+        TotalKasResponse total = new TotalKasResponse();
+        for (Kas kas : kasList) {
+            if(kas.getAlurKas().equalsIgnoreCase("MASUK"))
+                total.setKasMasuk(total.getKasMasuk() + kas.getNominal());
+            else if(kas.getAlurKas().equalsIgnoreCase("KELUAR"))
+                total.setKasKeluar(total.getKasKeluar() + kas.getNominal());
+        }
+        return total;
     }
 
     public Mono<Void> generateBukuKas(KasParamRequest request) {
