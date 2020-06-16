@@ -7,6 +7,7 @@ import com.kopwan.model.entity.Pinjaman;
 import com.kopwan.model.entity.Simpanan;
 import com.kopwan.model.enums.ErrorCode;
 import com.kopwan.model.exception.DataNotFoundException;
+import com.kopwan.model.exception.ValidationException;
 import com.kopwan.model.request.KasRequest;
 import com.kopwan.model.request.param.CicilanPinjamanParam;
 import com.kopwan.model.request.param.KasParamRequest;
@@ -45,6 +46,10 @@ public class KasService {
 
     public Mono<Kas> getById(String id) {
         return kasRepository.findByIdAndMarkForDeleteFalse(id);
+    }
+
+    public Mono<Kas> getByMonthAndYear(int month, int year) {
+        return kasRepository.findByMonthAndYearAndMarkForDeleteFalse(month, year);
     }
 
     public Mono<Kas> updateKas(String id, KasRequest request){
@@ -92,6 +97,13 @@ public class KasService {
     }
 
     public Mono<Void> generateBukuKas(KasParamRequest request) {
+        return getByMonthAndYear(request.getMonth(), request.getYear())
+                .flatMap(data -> Mono.error(new ValidationException(ErrorCode.INVALID_GENERATE)))
+                .switchIfEmpty(generate(request))
+                .then();
+    }
+
+    public Mono<Void> generate(KasParamRequest request) {
         return generateSimpanan(request)
                 .then(generatePinjaman(request))
                 .then(generateAngsuranPokok(request))
