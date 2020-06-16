@@ -6,6 +6,7 @@
 - [5) Generate Buku Kas [POST]](#generate)
 - [6) Get Kas By Month And Year [GET]](#getAll)
 - [7) Delete All Kas By Month and Year [DELETE]](#deleteAll)
+- [8) Get Total Kas By Month And Year [GET]](#getTotal)
 
 <br>
 
@@ -187,5 +188,26 @@
 		"errorCode": null,
 		"success": true
 	}
+
+<br>
+
+# 8) Get Kas By Month And Year - Kas<a name="getTotal"></a>
+### GET /api/kas/total
+
+### Params
+- MUST - month
+- MUST - year
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true,
+		"content": {
+		    "kasMasuk": 183000,
+		    "kasKeluar": 80000
+		 }
 
 <br>
