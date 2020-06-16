@@ -5,6 +5,7 @@ import com.kopwan.model.entity.Kas;
 import com.kopwan.model.request.KasRequest;
 import com.kopwan.model.request.param.KasParamRequest;
 import com.kopwan.model.response.RestBaseResponse;
+import com.kopwan.model.response.RestListResponse;
 import com.kopwan.model.response.RestSingleResponse;
 import com.kopwan.model.response.kas.KasResponse;
 import com.kopwan.service.KasService;
@@ -13,6 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class KasController extends BaseController {
@@ -70,6 +74,26 @@ public class KasController extends BaseController {
                 .thenReturn(toBaseResponse())
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.KAS,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestListResponse<KasResponse>> getAllByMonthAndYear(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "0") int month,
+            @RequestParam(defaultValue = "0") int year) {
+        return kasService.findAllByMonthAndYear(month, year, buildPageRequest(page, size))
+                .map(data -> toListResponse(createKasResponseList(data.getContent()),
+                        buildPageMetaData(page, size, data.getTotalElements())))
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    private List<KasResponse> createKasResponseList(List<Kas> kasList) {
+        return kasList.stream()
+                .map(this::createKasResponse)
+                .collect(Collectors.toList());
     }
 
     private KasResponse createKasResponse(Kas kas) {
