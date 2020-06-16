@@ -100,7 +100,7 @@ public class KasService {
     public Mono<Void> generateBukuKas(KasParamRequest request) {
         return getByMonthAndYear(request.getMonth(), request.getYear())
                 .filter(data -> !data.isEmpty())
-                .flatMap(data -> Mono.error(new DataNotFoundException(ErrorCode.INVALID_GENERATE)))
+                .flatMap(data -> Mono.error(new ValidationException(ErrorCode.INVALID_GENERATE)))
                 .switchIfEmpty(generate(request))
                 .then();
     }
