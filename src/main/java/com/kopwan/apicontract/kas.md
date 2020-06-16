@@ -2,9 +2,10 @@
 - [1) Get Kas By Id [GET]](#get)
 - [2) Create Kas [POST]](#create)
 - [3) Update Kas [PUT]](#update)
-- [4) Delete Kas [PUT]](#delete)
+- [4) Delete Kas [DELETE]](#delete)
 - [5) Generate Buku Kas [POST]](#generate)
 - [6) Get Kas By Month And Year [GET]](#getAll)
+- [7) Delete All Kas By Month and Year [DELETE]](#deleteAll)
 
 <br>
 
@@ -167,6 +168,24 @@
                 "pageNumber": 1,
                 "totalRecords": 7
             }
+	}
+
+<br>
+
+# 7) Delete All Kas By Month And Year<a name="deleteAll"></a>
+### DELETE /api/kas
+
+### Params
+- MUST - month
+- MUST - year
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true
 	}
 
 <br>
