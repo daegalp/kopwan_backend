@@ -88,18 +88,20 @@
 
 <br>
 
-# 4) Update Pinjaman<a name="update"></a>
-### PUT /api/pinjaman/{id}
+# 4) Update Cicilan Pinjaman<a name="update"></a>
+### PUT /api/cicilan/{id}
 
 ### Validation
 - id should unique
 - semua request body harus diisi
+- no anggota should unique
 
 ### Request Body
 
 	{
-		 "month" : 2,
-		 "year" : 2020
+	     "no" : 2,
+	     "month" : 2,
+	     "year" : 2020
 	}
 
 ### Response Body
