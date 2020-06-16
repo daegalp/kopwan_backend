@@ -4,6 +4,7 @@
 - [3) Update Kas [PUT]](#update)
 - [4) Delete Kas [PUT]](#delete)
 - [5) Generate Buku Kas [POST]](#generate)
+- [6) Get Kas By Month And Year [GET]](#getAll)
 
 <br>
 
@@ -131,6 +132,41 @@
 		"errorMessage": null,
 		"errorCode": null,
 		"success": true
+	}
+
+<br>
+
+# 6) Get Kas By Month And Year - Kas<a name="getAll"></a>
+### GET /api/kas
+
+### Params
+- OPTIONAL - page
+- OPTIONAL - size
+- MUST - month
+- MUST - year
+
+### Response Body
+
+	{
+		"requestId": "3915644d-b025-4f8d-aba1-0e0e2bce4ba9",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true,
+		"content": [
+                {
+                    "id": "5ee7083d2159f825677ba305",
+                    "name": "rw 1",
+                    "alurKas": "KELUAR",
+                    "nominal": 50000,
+                    "month": 2,
+                    "year": 2020
+                }
+		],
+		"pageMetaData": {
+                "pageSize": 10,
+                "pageNumber": 1,
+                "totalRecords": 7
+            }
 	}
 
 <br>
