@@ -15,6 +15,8 @@ public enum ErrorCode {
 
     INVALID_SIMPANAN_TYPE("ERR-PA403001", 403,
             "Invalid Simpanan Type"),
+    INVALID_GENERATE("ERR-PA403002", 403,
+            "This month already generate"),
 
     NAME_NOT_FOUND("ERR-PA404001",
             404, "Cannot find name"),
