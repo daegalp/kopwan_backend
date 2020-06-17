@@ -4,6 +4,7 @@ public class ApiPath {
     // ANGGOTA PATH
     public static final String ANGGOTA_BY_NO = "/api/anggota/{no}";
     public static final String ANGGOTA = "/api/anggota";
+    public static final String SEARCH_ANGGOTA = "/api/anggota/search";
 
     // SIMPANAN PATH
     public static final String SIMPANAN = "/api/simpanan";
