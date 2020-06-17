@@ -58,4 +58,10 @@ public class AnggotaService {
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.NO_ANGGOTA_NOT_FOUND)))
                 .map(anggota -> anggotaServiceUtil.convertToAnggotaResponse(anggota));
     }
+
+    public Mono<Anggota> findByAllField(AnggotaResponse anggota) {
+        return anggotaRepository.findByNoAndNameAndRwAndMarkForDeleteFalse(anggota.getNo(),
+                    anggota.getName(), anggota.getRw())
+                .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.ANGGOTA_NOT_FOUND)));
+    }
 }
