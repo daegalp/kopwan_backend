@@ -12,6 +12,8 @@ public interface AnggotaRepository extends ReactiveMongoRepository<Anggota, Stri
     Mono<Anggota> findByNoAndMarkForDeleteFalse(String no);
     Flux<Anggota> findAllByMarkForDeleteFalseOrderByRw(Pageable pageable);
     Mono<Anggota> findByNoAndNameAndRwAndMarkForDeleteFalse(String no, String name, int rw);
+    Flux<Anggota> findAllByNameLikeIgnoreCaseAndMarkForDeleteFalse(String name, Pageable pageable);
 
+    Mono<Long> countByNameLikeAndMarkForDeleteFalse(String name);
     Mono<Long> countByMarkForDeleteFalse();
 }
