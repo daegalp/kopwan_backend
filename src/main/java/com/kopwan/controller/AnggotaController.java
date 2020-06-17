@@ -74,6 +74,19 @@ public class AnggotaController extends BaseController{
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @GetMapping(value = ApiPath.SEARCH_ANGGOTA,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<RestListResponse<AnggotaResponse>> filterAnggota(
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return anggotaService.filterAnggota(name, buildPageRequest(page, size))
+                .map(data -> toListResponse(createAnggotaResponseList(data.getContent()),
+                        buildPageMetaData(page, size, data.getTotalElements())))
+                .doOnError(this::handleError)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     private List<AnggotaResponse> createAnggotaResponseList(List<Anggota> anggotaList) {
         return anggotaList.stream()
                 .map(this::createAnggotaResponse)
