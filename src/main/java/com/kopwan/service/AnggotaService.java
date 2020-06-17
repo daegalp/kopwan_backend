@@ -64,4 +64,11 @@ public class AnggotaService {
                     anggota.getName(), anggota.getRw())
                 .switchIfEmpty(Mono.error(new DataNotFoundException(ErrorCode.ANGGOTA_NOT_FOUND)));
     }
+
+    public Mono<Page<Anggota>> filterAnggota(String name, Pageable pageable) {
+        return anggotaRepository.countByNameLikeAndMarkForDeleteFalse(name)
+                .flatMap(count -> this.anggotaRepository.findAllByNameLikeIgnoreCaseAndMarkForDeleteFalse(name, pageable)
+                        .collectList()
+                        .map(data -> new PageImpl<>(data, pageable, count)));
+    }
 }
