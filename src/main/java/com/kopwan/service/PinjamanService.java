@@ -27,7 +27,8 @@ public class PinjamanService {
     private CicilanPinjamanService cicilanPinjamanService;
 
     public Mono<Void> createPinjaman(PinjamanRequest request){
-        return pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(util.convertToAnggota(request))
+        return anggotaService.findByAllField(request.getAnggota())
+                .flatMap(data -> pinjamanRepository.findByAnggotaAndLunasFalseAndMarkForDeleteFalse(util.convertToAnggota(request)))
                 .flatMap(data -> Mono.error(new ValidationException(ErrorCode.ANGGOTA_STILL_HAS_PINJAMAN)))
                 .switchIfEmpty(pinjamanRepository.save(util.convertToPinjaman(request)))
                 .then();
