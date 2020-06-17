@@ -127,7 +127,8 @@ public class KasService {
                 .map(Slice::getContent)
                 .map(this::countTotalSimpanan)
                 .filter(total -> total != 0)
-                .flatMap(total -> createKas(createKasRequest("Simpanan RW " + request.getRw(),
+                .flatMap(total -> createKas(createKasRequest("Simpanan " +
+                                request.getType() + " RW " + request.getRw(),
                         request.getType(), "MASUK", total,
                         request.getMonth(), request.getYear())))
                 .then();
