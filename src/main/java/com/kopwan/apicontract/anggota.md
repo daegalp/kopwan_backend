@@ -4,6 +4,7 @@
 - [3) Create Anggota [POST]](#create)
 - [4) Update Anggota [PUT]](#update)
 - [5) Delete Anggota [DELETE]](#delete)
+- [6) Search Anggota By Name [GET]](#search)
 
 <br>
 
@@ -125,6 +126,37 @@
 		"errorMessage": null,
 		"errorCode": null,
 		"success": true
+	}
+
+<br>
+
+# 6) Search Anggota By Name<a name="search"></a>
+### GET /api/anggota/search
+
+### Params
+- OPTIONAL - name - like filter
+- OPTIONAL - page (default = 1)
+- OPTIONAL - size (default = 10)
+
+### Response Body
+
+	{
+		"requestId": "",
+		"errorMessage": null,
+		"errorCode": null,
+		"success": true,
+		"content" : [
+			{
+				"no" : "",
+				"name" : "",
+				"rw" : ""
+			}
+		],
+		"pageMetaData" : {	
+			"pageNumber" : 1,
+			"pageSize" : 2,
+			"totalRecords" : 75
+		}
 	}
 
 <br>
